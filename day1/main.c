@@ -2,7 +2,40 @@
 #include <stdio.h>
 #include <string.h>
 
-int main() {
+int part1() {
+    char firstValue = '0';
+    char lastValue = '0';
+    FILE *fptr = fopen("text.txt", "r");
+    int calibrationValue = 0;
+    if (fptr != NULL) {
+        char line [128];
+        while (fgets(line, sizeof(line), fptr) != NULL) {
+            int value;
+            for (int i = 0; i < sizeof(line); i++) {
+                if(isdigit(line[i])) {
+                    if (firstValue != '0') {
+                        lastValue = line[i];
+                    } else {
+                        firstValue = line[i];
+                        lastValue = line[i];
+                    } 
+                }
+            }
+            value = (firstValue - '0') * 10 + (lastValue - '0');
+            firstValue = '0';
+            lastValue = '0';
+            calibrationValue += value; 
+            memset(&line[0], 0, sizeof(line));
+        }
+    } else {
+        perror("test.txt");
+    } 
+    fclose(fptr);
+
+    return calibrationValue;
+}
+
+int part2() {
     const char *stringNums[9] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
     FILE *fptr = fopen("text.txt", "r");
     const char *nums = "123456789\0";
@@ -22,7 +55,7 @@ int main() {
                 if(isdigit(line[i])) {
                     memset(strNum, 0, strlen(strNum));
                     x = 0;
-                    if (firstValue != '0') {
+                   if (firstValue != '0') {
                         lastValue = line[i];
                     } else {
                         firstValue = line[i];
@@ -56,7 +89,16 @@ int main() {
     } else {
         perror("test.txt");
     } 
-    printf("%d", calibrationValue);
+    fclose(fptr);
 
     return calibrationValue;
+}
+
+int main() {
+    int returnValueP1 = part1();
+    int returnValueP2 = part2();
+    printf("Part1: %d\nPart2: %d", returnValueP1, returnValueP2);
+    
+
+    return 0;
 }
