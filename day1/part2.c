@@ -4,7 +4,7 @@
 
 int main() {
     const char *stringNums[9] = {"one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
-    FILE *fptr = fopen("test.txt", "r");
+    FILE *fptr = fopen("text.txt", "r");
     const char *nums = "123456789\0";
     char firstValue = '0';
     char lastValue = '0';
@@ -36,7 +36,11 @@ int main() {
                             } else {
                                 firstValue = nums[j];
                                 lastValue = nums[j];
-                            }         
+                            }
+                            memset(strNum, 0, strlen(strNum));
+                            x = 1;
+                            strNum[0] = line[i];
+                            printf("%c", strNum[x]);
                         }
                     }
                 }
@@ -45,9 +49,9 @@ int main() {
             firstValue = '0';
             lastValue = '0';
             calibrationValue += value; 
-            printf("%d ", value);
             memset(strNum, 0, strlen(strNum));
             memset(&line[0], 0, sizeof(line));
+            x = 0;
         }
     } else {
         perror("test.txt");
