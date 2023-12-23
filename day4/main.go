@@ -20,7 +20,6 @@ func main() {
 
     fmt.Println(p1)
     fmt.Println(p2)
-
 }
 
 func part1(file string) float64 {
@@ -46,10 +45,12 @@ func part1(file string) float64 {
         result += math.Pow(float64(2), float64(matchNums - 1))
     }
         
-
     return result 
 }
 
+
+// TODO: fix performance -> Instead of nested for loops, one for loop, create hash table and then calculate the sum with the 
+// matches.
 func part2(file string) int {
     result := 0
     games := strings.Split(file, "\n") 
@@ -65,8 +66,7 @@ func part2(file string) int {
         nums = append(nums, 1) 
     } 
     for idx, line := range realGames {
-        j := 0
-        for j < nums[idx] {
+        for j := 0; j < nums[idx]; j++ {
             game := strings.Split(line, ":") 
             cards := strings.Split(game[len(game)-1], "|")
             luckyNums := strings.Split(cards[0], " ") 
@@ -79,14 +79,11 @@ func part2(file string) int {
                 }
             }
             
-            i := 0 
-            if (matchNums > 0) {
-                for i < matchNums {
+            if matchNums > 0 {
+                for i := 0; i < matchNums; i++ {
                     nums[idx + i + 1] += 1
-                    i++
                 }
             }
-            j++
         }
     }
 
@@ -96,3 +93,4 @@ func part2(file string) int {
 
     return result 
 }
+
