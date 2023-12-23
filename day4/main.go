@@ -30,21 +30,25 @@ func part1(file string) float64 {
         cards := strings.Split(game[len(game)-1], "|")
         luckyNums := strings.Split(cards[0], " ") 
         winningNums := strings.Split(cards[len(cards)-1], " ") 
-        matchNums := []string{}
+        matchNums := 0 
 
         for _, num := range winningNums {
             if slices.Contains(luckyNums, num) && num != "" {
-                matchNums = append(matchNums, num)            
+                matchNums += 1            
             }
         }
 
-        if len(matchNums) == 0 {
+        if matchNums == 0 {
             continue 
         }
         
-        result += math.Pow(float64(2), float64(len(matchNums) - 1))
+        result += math.Pow(float64(2), float64(matchNums - 1))
     }
         
 
     return result 
+}
+
+func part2(file string) float64 {
+    return 0.0
 }
