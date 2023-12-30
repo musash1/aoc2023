@@ -5,9 +5,9 @@ defmodule Day5 do
     end
 
     def part1(file) do
-        lines = String.split(file, "\n", trim: true)
-        lines2 = Enum.filter(lines, fn x -> Regex.match?(~r/\d+/, x) == true end)
-        IO.inspect lines2
+        blocks = String.split(file, "\n\n", trim: true) 
+        lines = Enum.map(blocks, fn x -> String.split(x, "\n", trim: true) end)
+        IO.inspect lines
     end
 end
 
