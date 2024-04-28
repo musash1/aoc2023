@@ -16,19 +16,19 @@ fn part1(content: String) -> u16 {
     let mut temp_second_range: Range<u16> = 1..0;
     let mut ranges: Vec<Range<u16>> = vec![];
     let mut ranges_second: Vec<Range<u16>> = vec![];
-    for line in block {
+    block.into_iter().for_each(|line| {
         if line.is_empty() {
             let mut i = 0;
             for seed in &seeds {
                 let mut j = 0;
-                for range in ranges {
+                for range in &ranges {
                     if *seed == 0 || !temp_second_range.contains(seed) {
                         i += 1;
                         continue;
                     }
                     let second_ranges_temp = match ranges_second.get(j) {
                         Some(range1) => range1,
-                        None => panic!() 
+                        None => panic!(), 
                     };
                     
 
@@ -42,9 +42,8 @@ fn part1(content: String) -> u16 {
             temp_range = 1..0;
             temp_second_range = 1..0;
             seeds = next_seeds.clone();
-            continue;
-        }
-        if contains_num(line) {
+            
+        } else if contains_num(line) {
             let nums: Vec<u16> = line.split(" ").map(|x| x.parse::<u16>().unwrap_or(0)).collect();
 
             let line_range = nums[0]..nums[0] + nums[2] - 1;
@@ -69,7 +68,7 @@ fn part1(content: String) -> u16 {
                 }
             } 
         } 
-    }
+    });
     println!("{:?}", &seeds);
     let min = seeds.iter().min(); 
     match min {
