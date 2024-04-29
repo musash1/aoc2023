@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-    file, err := os.ReadFile("test.txt") 
+    file, err := os.ReadFile("text.txt") 
     if err != nil {
         log.Fatal(err)
     }
@@ -52,7 +52,6 @@ func part1(file string) float64 {
 // TODO: fix performance -> Instead of nested for loops, one for loop, create hash table and then calculate the sum with the 
 // matches.
 func part2(file string) int {
-    result := 0
     games := strings.Split(file, "\n") 
     realGames := []string{}
     nums := []int{}
@@ -68,43 +67,32 @@ func part2(file string) int {
     } 
     for line := range realGames {
         line = line
-        matchNumbers = append(matchNumbers, 1) 
+        matchNumbers = append(matchNumbers, 0) 
     }
     for idx, line := range realGames {
         game := strings.Split(line, ":") 
         cards := strings.Split(game[len(game)-1], "|")
         luckyNums := strings.Split(cards[0], " ") 
         winningNums := strings.Split(cards[len(cards)-1], " ") 
-        matchNums := 0 
 
         for _, num := range winningNums {
             if slices.Contains(luckyNums, num) && num != "" {
-                matchNums += 1
+                matchNumbers[idx] += 1
             }
         }
-
-        if idx < len(realGames) {
-            matchNumbers[idx] = matchNums
-        }
-        
-        if matchNums > 0 {
-            for i := 0; i < matchNums; i++ {
-                nums[idx + i + 1] += matchNums
+        for j := range nums[idx] {
+            j = j 
+            for i := range matchNumbers[idx] {
+                nums[idx + i + 1] += 1
             }
         }
     }
-    matchNumberValues := matchNumbers
 
-    for i, val  := range matchNumbers {
-       matchNumberValues[i] += val
+    sum := 0
+    for _, x := range nums {
+        sum += x
     }
 
-    for i, val := range matchNumbers {
-        result += val * matchNumberValues[i]
-    }
-    
-    fmt.Printf("matchNumbers: %v\n", matchNumbers)
-
-    return result 
+    return sum 
 }
 
