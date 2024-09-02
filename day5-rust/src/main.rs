@@ -1,7 +1,7 @@
 use std::{fs, ops::Range};
 
 fn main() {
-    let content = fs::read_to_string("test.txt").expect("Couldn't read File");
+    let content = fs::read_to_string("text.txt").expect("Couldn't read File");
     println!("{:?}", part1(content));
 }
 
