@@ -16,13 +16,13 @@ fn part1(input: []const u8) !usize {
 
     while (lines.next()) |line| {
         var gameInput = std.mem.splitScalar(u8, line, ':');
-        var gameString = gameInput.next().?;
+        const gameString = gameInput.next().?;
         var gameName = std.mem.splitScalar(u8, gameString, ' ');
-        var gameNameString = gameName.next().?;
+        const gameNameString = gameName.next().?;
         _ = gameNameString;
-        var gameIdString = gameName.next().?;
-        var gameId = try std.fmt.parseInt(usize, gameIdString, 10);
-        var hands = gameInput.next().?;
+        const gameIdString = gameName.next().?;
+        const gameId = try std.fmt.parseInt(usize, gameIdString, 10);
+        const hands = gameInput.next().?;
         var hand = std.mem.splitScalar(u8, hands, ';');
         var impossible: bool = false;
         while (hand.next()) |x| {
@@ -55,9 +55,9 @@ fn part2(input: []const u8) !usize {
 
     while (lines.next()) |line| {
         var gameInput = std.mem.splitScalar(u8, line, ':');
-        var gameString = gameInput.next().?;
+        const gameString = gameInput.next().?;
         _ = gameString;
-        var hands = gameInput.next().?;
+        const hands = gameInput.next().?;
         var hand = std.mem.splitScalar(u8, hands, ';');
         var red: usize = 0;
         var green: usize = 0;
